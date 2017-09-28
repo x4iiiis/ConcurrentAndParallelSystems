@@ -9,7 +9,6 @@
 #include <fstream>
 #include <vector>
 #include <random>
-///#include <math.h>
 
 using namespace std;
 using namespace std::chrono;
