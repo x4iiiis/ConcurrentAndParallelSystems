@@ -1,0 +1,4 @@
+﻿  17.cpp
+c:\users\40168766\desktop\concurrentandparallelsystems\unit 1 - multi-threading\1.7 monte carlo π\1.7\17.cpp(23): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+  1.7.vcxproj -> C:\Users\40168766\Desktop\ConcurrentAndParallelSystems\Unit 1 - Multi-Threading\1.7 Monte Carlo π\x64\Debug\1.7.exe
+  1.7.vcxproj -> C:\Users\40168766\Desktop\ConcurrentAndParallelSystems\Unit 1 - Multi-Threading\1.7 Monte Carlo π\x64\Debug\1.7.pdb (Partial PDB)
