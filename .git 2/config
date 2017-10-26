@@ -1,0 +1,12 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[submodule]
+	active = .
+[remote "origin"]
+	url = https://github.com/x4iiiis/ConcurrentAndParallelSystems.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
