@@ -304,7 +304,8 @@ int main(int argc, char **argv)
 
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
 	constexpr size_t dimension = 1024;
-	constexpr size_t samples = 1; // Algorithm performs 4 * samples per pixel.
+	//constexpr 
+		size_t samples = 1; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
 	{
 		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
@@ -325,29 +326,55 @@ int main(int argc, char **argv)
 	vec r;
 	vector<vec> pixels(dimension * dimension);
 
-	for (size_t y = 0; y < dimension; ++y)
+
+	//R//Create results file
+	ofstream results("test.csv", ofstream::out);
+	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
+	
+
+
+	//R//Gonna try and write a loop to cycle through all the sample sizes
+	for (int R = 1; R < 4096; R*=4)
 	{
-		cout << "Rendering " << dimension << " * " << dimension << "pixels. Samples:" << samples * 4 << " spp (" << 100.0 * y / (dimension - 1) << ")" << endl;
-		for (size_t x = 0; x < dimension; ++x)
+		samples = R;
+
+		//R//Get Start Time
+		auto start = chrono::system_clock::now();
+
+		for (size_t y = 0; y < dimension; ++y)
 		{
-			for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
+			cout << "Rendering " << dimension << " * " << dimension << "pixels. Samples:" << samples * 4 << " spp (" << 100.0 * y / (dimension - 1) << ")" << endl;
+			for (size_t x = 0; x < dimension; ++x)
 			{
-				for (size_t sx = 0; sx < 2; ++sx)
+				for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
 				{
-					r = vec();
-					for (size_t s = 0; s < samples; ++s)
+					for (size_t sx = 0; sx < 2; ++sx)
 					{
-						double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
-						double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
-						vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
-						r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
+						r = vec();
+						for (size_t s = 0; s < samples; ++s)
+						{
+							double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
+							double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
+							vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
+							r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
+						}
+						pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
 					}
-					pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
 				}
 			}
 		}
+		//R//Get end time and calculate the time taken
+		auto end = chrono::system_clock::now();
+		auto total = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+		//R//Output results
+		results << dimension << " * " << dimension << ", " << samples * 4 << "," << total << endl;
 	}
+	
+
+	//Create the image file
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
+	
 	return 0;
 }
 
