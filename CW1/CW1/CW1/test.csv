@@ -1,4 +1,2 @@
 Image Dimensions (px),Samples per Pixel,Time taken (ms)
-1024 * 1024, 4,27239
-1024 * 1024, 4
-1024 * 1024, 4
+400 * 400, 4096,4110817

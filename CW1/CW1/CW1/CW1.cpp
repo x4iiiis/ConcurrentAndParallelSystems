@@ -303,9 +303,9 @@ int main(int argc, char **argv)
 	auto get_random_number = bind(distribution, generator);
 
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 1024;
+	constexpr size_t dimension = 400;
 	//constexpr 
-		size_t samples = 1; // Algorithm performs 4 * samples per pixel.
+		size_t samples = 1024; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
 	{
 		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
@@ -333,10 +333,10 @@ int main(int argc, char **argv)
 	
 
 
-	//R//Gonna try and write a loop to cycle through all the sample sizes
-	for (int R = 1; R < 4096; R*=4)
-	{
-		samples = R;
+	////R//Gonna try and write a loop to cycle through all the sample sizes
+	//for (int R = 1; R < 4096; R*=4)
+	//{
+	//	samples = R;
 
 		//R//Get Start Time
 		auto start = chrono::system_clock::now();
@@ -369,7 +369,7 @@ int main(int argc, char **argv)
 
 		//R//Output results
 		results << dimension << " * " << dimension << ", " << samples * 4 << "," << total << endl;
-	}
+	//}
 	
 
 	//Create the image file
