@@ -302,7 +302,7 @@ bool array2bmp(const std::string &filename, const vector<vec> &pixels, const siz
 }
 
 //R//
-void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vector<sphere> &spheres, vector<vec> &pixels, int start, int end)
+void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vector<sphere> &spheres, vector<vec> &pixels, int threadStart, int threadEnd)
 {
 	random_device rd;
 	default_random_engine generator(rd());
@@ -313,7 +313,7 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 	mutex muteX;
 
 	//for (size_t y = 0; y < dimension; ++y)
-	for (int y = start; y <= end; ++y)
+	for (int y = threadStart; y < threadEnd; ++y)
 	{
 		cout << "Rendering " << dimension << " * " << dimension << "pixels. Samples:" << samples * 4 << " spp (" << 100.0 * y / (dimension - 1) << ")" << endl;
 		for (size_t x = 0; x < dimension; ++x)
@@ -345,7 +345,7 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 int main(int argc, char **argv)
 {
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 1024;
+	constexpr size_t dimension = 400;
 	vector<sphere> spheres
 	{
 		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
@@ -374,7 +374,12 @@ int main(int argc, char **argv)
 	//constexpr 
 	size_t samples = 4; // Algorithm performs 4 * samples per pixel.
 
-	
+	//R//
+	//Trying to make a loop
+	for (int R = 0; R < 10; R++)
+	{
+
+
 	//R//
 	auto threadCount = thread::hardware_concurrency();
 	vector<thread> threads;
@@ -383,12 +388,12 @@ int main(int argc, char **argv)
 	for (int i = 0; i < threadCount; i++)
 	{
 		//C//
-		int length = dimension / threadCount;
-		int start = i*length;
-		int end = ((i + 1)*length) - 1;
+		int threadChunk = dimension / threadCount;
+		int threadStart = i * threadChunk;
+		int threadEnd = (i + 1) * threadChunk;
 		//C^^^^//
 
-		threads.push_back(thread(pixelsI, dimension, samples, r, cx, cy, camera, spheres, std::ref(pixels), start, end));
+		threads.push_back(thread(pixelsI, dimension, samples, r, cx, cy, camera, spheres, std::ref(pixels), threadStart, threadEnd));
 	}
 
 	//R//Get Start Time
@@ -407,6 +412,11 @@ int main(int argc, char **argv)
 	//R//Output results
 	results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << endl;
 
+	//R//Clear the threads for the loop
+	threads.clear();
+
+	//R//End of loop
+	}
 
 	//Create the image file
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
