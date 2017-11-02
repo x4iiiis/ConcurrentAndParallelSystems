@@ -315,8 +315,6 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 	//for (size_t y = 0; y < dimension; ++y)
 	for (int y = threadStart; y < threadEnd; ++y)
 	{
-		//R// Commenting out cout's as they decrease performance 
-		//cout << "Rendering " << dimension << " * " << dimension << "pixels. Samples:" << samples * 4 << " spp (" << 100.0 * y / (dimension - 1) << ")" << endl;
 		for (size_t x = 0; x < dimension; ++x)
 		{
 			for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
@@ -369,7 +367,7 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 //
 //
 //	//R//Create results file
-//	ofstream results("test.csv", ofstream::out);
+//	ofstream results("Mutex.csv", ofstream::out);
 //	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
 //
 //	//constexpr 
@@ -459,48 +457,54 @@ int main(int argc, char **argv)
 
 
 	//R//Create results file
-	ofstream results("test.csv", ofstream::out);
+	ofstream results("ParallelFor.csv", ofstream::out);
 	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
 
 	//R//
-	auto threadCount = thread::hardware_concurrency();
-
-	//R//
-	auto startTime = chrono::system_clock::now();
-
-	for (size_t y = 0; y < dimension; ++y)
+	//Trying to make a loop
+	for (int R = 0; R < 2; R++)
 	{
-		//cout << "Rendering " << dimension << " * " << dimension << "pixels. Samples:" << samples * 4 << " spp (" << 100.0 * y / (dimension - 1) << ")" << endl;
-		for (size_t x = 0; x < dimension; ++x)
+
+		//R//
+		auto threadCount = thread::hardware_concurrency();
+
+		//R//
+		auto startTime = chrono::system_clock::now();
+
+		for (size_t y = 0; y < dimension; ++y)
 		{
-			for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
+			for (size_t x = 0; x < dimension; ++x)
 			{
-				for (size_t sx = 0; sx < 2; ++sx)
+				for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
 				{
-					r = vec();
-
-
-					//R//Parallel For
-					int s;
-#pragma omp parallel for num_threads(threadCount) private(s) 
-					for (s = 0; s < samples; ++s)
+					for (size_t sx = 0; sx < 2; ++sx)
 					{
-						double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
-						double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
-						vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
-						r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
+						r = vec();
+
+
+						//R//Parallel For
+						int s;
+#pragma omp parallel for num_threads(threadCount) private(s) 
+						for (s = 0; s < samples; ++s)
+						{
+							double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
+							double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
+							vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
+							r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
+						}
+						pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
 					}
-					pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
 				}
 			}
 		}
-	}
-	//R//Get end time and calculate the time taken
-	auto endTime = chrono::system_clock::now();
-	auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
+		//R//Get end time and calculate the time taken
+		auto endTime = chrono::system_clock::now();
+		auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
 
-	//R//Output results
-	results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << endl;
+		//R//Output results
+		results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << endl;
+	
+	}//End of loop
 
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
 	return 0;
@@ -540,7 +544,7 @@ int main(int argc, char **argv)
 //
 
 	//R//Create results file
-	//ofstream results("test.csv", ofstream::out);
+	//ofstream results("Kevin.csv", ofstream::out);
 	//results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
 
 
@@ -549,7 +553,6 @@ int main(int argc, char **argv)
 
 //	for (size_t y = 0; y < dimension; ++y)
 //	{
-//		//cout << "Rendering " << dimension << " * " << dimension << "pixels. Samples:" << samples * 4 << " spp (" << 100.0 * y / (dimension - 1) << ")" << endl;
 //		for (size_t x = 0; x < dimension; ++x)
 //		{
 //			for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
