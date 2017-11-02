@@ -1,10 +1,11 @@
 ﻿  CW1.cpp
 CW1.cpp(318): warning C4018: '<': signed/unsigned mismatch
 CW1.cpp(325): warning C4018: '<': signed/unsigned mismatch
+CW1.cpp(390): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  106 of 307 functions (34.5%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    12 functions had inline decision re-evaluated but remain unchanged
+  1 of 507 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CW1.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW1\CW1\Release\CW1.exe
   CW1.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW1\CW1\Release\CW1.pdb (Full PDB)
