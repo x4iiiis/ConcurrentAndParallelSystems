@@ -340,6 +340,7 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 }
 
 
+
 //Main for Mutex
 int main(int argc, char **argv)
 {
@@ -355,7 +356,11 @@ int main(int argc, char **argv)
 		sphere(1e5, vec(50, -1e5 + 81.6, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
 		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
 		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
-		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE)
+		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE),
+		///////////////////////////////
+		//sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE),
+		//sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE),
+		//sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE)
 	};
 	// **************************************************************************************
 
@@ -368,59 +373,91 @@ int main(int argc, char **argv)
 
 	//R//Create results file
 	ofstream results("Mutex.csv", ofstream::out);
-	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
+	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << "," << "Spheres" << endl;
 
 	//constexpr 
 	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
 
 	//R//Looping through sample sizes
-	while (samples != 1024)
+	while (samples != 256)
 	{
 
-		//Trying to make a loop
-		for (int R = 0; R < 10; R++)
+		//Sphere adding loop
+		for (int Z = 0; Z < 3; Z++)
 		{
 
-
-			//R//
-			auto threadCount = thread::hardware_concurrency();
-			vector<thread> threads;
-
-			//R//(C)
-			for (int i = 0; i < threadCount; i++)
+			//Trying to make a loop
+			for (int R = 0; R < 10; R++)
 			{
-				//C//
-				int threadChunk = dimension / threadCount;
-				int threadStart = i * threadChunk;
-				int threadEnd = (i + 1) * threadChunk;
-				//C^^^^//
 
-				threads.push_back(thread(pixelsI, dimension, samples, r, cx, cy, camera, spheres, std::ref(pixels), threadStart, threadEnd));
-			}
+				//R//
+				auto threadCount = thread::hardware_concurrency();
+				vector<thread> threads;
 
-			//R//Get Start Time
-			auto startTime = chrono::system_clock::now();
+				//R//
+				for (int i = 0; i < threadCount; i++)
+				{
+					int threadChunk = dimension / threadCount;
+					int threadStart = i * threadChunk;
+					int threadEnd = (i + 1) * threadChunk;
+					
 
-			//R//Join Threads
-			for (auto &t : threads)
+					threads.push_back(thread(pixelsI, dimension, samples, r, cx, cy, camera, spheres, std::ref(pixels), threadStart, threadEnd));
+				}
+
+				//R//Get Start Time
+				auto startTime = chrono::system_clock::now();
+
+				//R//Join Threads
+				for (auto &t : threads)
+				{
+					t.join();
+				}
+
+				//R//Get end time and calculate the time taken
+				auto endTime = chrono::system_clock::now();
+				auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
+
+				//R//Output results
+				results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << "," << spheres.size() << endl;
+
+				//R//Clear the threads for the loop
+				threads.clear();
+			
+			}//End of R loop
+			//results << endl;
+
+			//Add some spheres
+			if (spheres.size() > 14)
 			{
-				t.join();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
 			}
+			else if (spheres.size() > 9 && spheres.size() < 13)
+			{
+				spheres.push_back(sphere(19.5, vec(07, 16.5, 42), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR));
+				spheres.push_back(sphere(20.5, vec(13, 66.5, 98), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE));
+				spheres.push_back(sphere(700, vec(90, 481.6 - 0.97, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE));
+			}
+			else if (spheres.size() < 10)
+			{
+				spheres.push_back(sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE));
+				spheres.push_back(sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE));
+				spheres.push_back(sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE));
+			}
+			
+			
 
-			//R//Get end time and calculate the time taken
-			auto endTime = chrono::system_clock::now();
-			auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
-
-			//R//Output results
-			results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << endl;
-
-			//R//Clear the threads for the loop
-			threads.clear();
-		}//End of loop
+		}//End of Z loop
+		 //Used to loop through each of the sample rates
 		results << endl;
-		//Used to loop through each of the sample rates
 		samples *= 4;
-	}
+
+	}//End of while
 
 	//Create the image file
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
@@ -451,7 +488,12 @@ int main(int argc, char **argv)
 //		sphere(1e5, vec(50, -1e5 + 81.6, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
 //		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
 //		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
-//		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE)
+//		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE),
+//
+//
+//		sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE),
+//		sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE),
+//		sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE)
 //	};
 //	// **************************************************************************************
 //
@@ -472,7 +514,7 @@ int main(int argc, char **argv)
 //	{
 //
 //		//Trying to make a loop
-//		for (int R = 0; R < 2; R++)
+//		for (int R = 0; R < 1; R++)
 //		{
 //
 //			//R//
