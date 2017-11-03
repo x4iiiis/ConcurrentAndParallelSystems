@@ -342,6 +342,7 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 
 
 //Main for Mutex
+///*
 int main(int argc, char **argv)
 {
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
@@ -357,10 +358,6 @@ int main(int argc, char **argv)
 		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
 		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
 		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE),
-		///////////////////////////////
-		//sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE),
-		//sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE),
-		//sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE)
 	};
 	// **************************************************************************************
 
@@ -464,178 +461,260 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+//*/
 
 
-//R//Main for Parallel For
-//int main(int argc, char **argv)
-//{
-//	random_device rd;
-//	default_random_engine generator(rd());
-//	uniform_real_distribution<double> distribution;
-//	auto get_random_number = bind(distribution, generator);
-//
-//	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-//	constexpr size_t dimension = 1024;
-//	//constexpr 
-//	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
-//	vector<sphere> spheres
-//	{
-//		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(-1e5 + 99, 40.8, 81.6), vec(), vec(0.25, 0.25, 0.75), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 40.8, 1e5), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 40.8, -1e5 + 170), vec(), vec(), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 1e5, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, -1e5 + 81.6, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
-//		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
-//		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
-//		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE),
-//
-//
-//		sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE)
-//	};
-//	// **************************************************************************************
-//
-//	ray camera(vec(50, 52, 295.6), vec(0, -0.042612, -1).normal());
-//	vec cx = vec(0.5135);
-//	vec cy = (cx.cross(camera.direction)).normal() * 0.5135;
-//	vec r;
-//	vector<vec> pixels(dimension * dimension);
-//
-//
-//	//R//Create results file
-//	ofstream results("ParallelFor.csv", ofstream::out);
-//	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
-//
-//
-//	//R//Looping through sample sizes
-//	while (samples != 16)
-//	{
-//
-//		//Trying to make a loop
-//		for (int R = 0; R < 1; R++)
-//		{
-//
-//			//R//
-//			auto threadCount = thread::hardware_concurrency();
-//
-//			//R//
-//			auto startTime = chrono::system_clock::now();
-//
-//			for (size_t y = 0; y < dimension; ++y)
-//			{
-//				for (size_t x = 0; x < dimension; ++x)
-//				{
-//					for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
-//					{
-//						for (size_t sx = 0; sx < 2; ++sx)
-//						{
-//							r = vec();
-//
-//
-//							//R//Parallel For
-//							int s;
-//#pragma omp parallel for num_threads(threadCount) private(s) 
-//							for (s = 0; s < samples; ++s)
-//							{
-//								double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
-//								double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
-//								vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
-//								r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
-//							}
-//							pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
-//						}
-//					}
-//				}
-//			}
-//			//R//Get end time and calculate the time taken
-//			auto endTime = chrono::system_clock::now();
-//			auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
-//
-//			//R//Output results
-//			results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << endl;
-//
-//		}//End of loop
-//		results << endl;
-//		//Used to loop through each of the sample rates
-//		samples *= 4;
-//	}
-//
-//	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
-//	return 0;
-//}
 
 
-////KEVIN'S MAIN//
-//int main(int argc, char **argv)
-//{
-//	random_device rd;
-//	default_random_engine generator(rd());
-//	uniform_real_distribution<double> distribution;
-//	auto get_random_number = bind(distribution, generator);
-//
-//	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-//	constexpr size_t dimension = 400;
-//	constexpr size_t samples = 4; // Algorithm performs 4 * samples per pixel.
-//	vector<sphere> spheres
-//	{
-//		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(-1e5 + 99, 40.8, 81.6), vec(), vec(0.25, 0.25, 0.75), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 40.8, 1e5), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 40.8, -1e5 + 170), vec(), vec(), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, 1e5, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
-//		sphere(1e5, vec(50, -1e5 + 81.6, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
-//		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
-//		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
-//		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE)
-//	};
-//	// **************************************************************************************
-//
-//	ray camera(vec(50, 52, 295.6), vec(0, -0.042612, -1).normal());
-//	vec cx = vec(0.5135);
-//	vec cy = (cx.cross(camera.direction)).normal() * 0.5135;
-//	vec r;
-//	vector<vec> pixels(dimension * dimension);
-//
+
+
+
+
+
+//R//Main for Parallel For 
+/*
+int main(int argc, char **argv)
+{
+	random_device rd;
+	default_random_engine generator(rd());
+	uniform_real_distribution<double> distribution;
+	auto get_random_number = bind(distribution, generator);
+
+	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
+	constexpr size_t dimension = 400;
+	//constexpr 
+	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
+	vector<sphere> spheres
+	{
+		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
+		sphere(1e5, vec(-1e5 + 99, 40.8, 81.6), vec(), vec(0.25, 0.25, 0.75), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, 40.8, 1e5), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, 40.8, -1e5 + 170), vec(), vec(), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, 1e5, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, -1e5 + 81.6, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
+		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
+		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
+		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE),
+	};
+	// **************************************************************************************
+
+	ray camera(vec(50, 52, 295.6), vec(0, -0.042612, -1).normal());
+	vec cx = vec(0.5135);
+	vec cy = (cx.cross(camera.direction)).normal() * 0.5135;
+	vec r;
+	vector<vec> pixels(dimension * dimension);
+
 
 	//R//Create results file
-	//ofstream results("Kevin.csv", ofstream::out);
-	//results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << endl;
+	ofstream results("ParallelFor.csv", ofstream::out);
+	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << "," << "Spheres" << endl;
 
 
-	//R//
-	//auto startTime = chrono::system_clock::now();
+	//R//Looping through sample sizes
+	while (samples != 256)
+	{
 
-//	for (size_t y = 0; y < dimension; ++y)
-//	{
-//		for (size_t x = 0; x < dimension; ++x)
-//		{
-//			for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
-//			{
-//				for (size_t sx = 0; sx < 2; ++sx)
-//				{
-//					r = vec();
-//					for (size_t s = 0; s < samples; ++s)
-//					{
-//						double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
-//						double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
-//						vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
-//						r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
-//					}
-//					pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
-//				}
-//			}
-//		}
-//	}
-	//R//Get end time and calculate the time taken
-	//auto endTime = chrono::system_clock::now();
-	//auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
+		//Sphere adding loop
+		for (int Z = 0; Z < 3; Z++)
+		{
 
-	//R//Output results
-	///results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << endl;
+			//Trying to make a loop
+			for (int R = 0; R < 10; R++)
+			{
 
-//	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
-//	return 0;
-//}
-//
+				//R//
+				auto threadCount = thread::hardware_concurrency();
+
+				//R//
+				auto startTime = chrono::system_clock::now();
+
+				for (size_t y = 0; y < dimension; ++y)
+				{
+					for (size_t x = 0; x < dimension; ++x)
+					{
+						for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
+						{
+							for (size_t sx = 0; sx < 2; ++sx)
+							{
+								r = vec();
+
+
+								//R//Parallel For
+								int s;
+#pragma omp parallel for num_threads(threadCount) private(s) 
+								for (s = 0; s < samples; ++s)
+								{
+									double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
+									double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
+									vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
+									r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
+								}
+								pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
+							}
+						}
+					}
+				}
+				//R//Get end time and calculate the time taken
+				auto endTime = chrono::system_clock::now();
+				auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
+
+				//R//Output results
+				results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << "," << spheres.size() << endl;
+
+			}//End of loop
+			//Add some spheres
+			if (spheres.size() > 14)
+			{
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+			}
+			else if (spheres.size() > 9 && spheres.size() < 13)
+			{
+				spheres.push_back(sphere(19.5, vec(07, 16.5, 42), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR));
+				spheres.push_back(sphere(20.5, vec(13, 66.5, 98), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE));
+				spheres.push_back(sphere(700, vec(90, 481.6 - 0.97, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE));
+			}
+			else if (spheres.size() < 10)
+			{
+				spheres.push_back(sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE));
+				spheres.push_back(sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE));
+				spheres.push_back(sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE));
+			}
+
+		}//End of sphere adding loop 
+		results << endl;
+		samples *= 4;
+
+	}//End of While
+
+	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
+	return 0;
+}
+*/
+
+
+
+
+
+
+
+//KEVIN'S MAIN//
+/*
+int main(int argc, char **argv)
+{
+	random_device rd;
+	default_random_engine generator(rd());
+	uniform_real_distribution<double> distribution;
+	auto get_random_number = bind(distribution, generator);
+
+	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
+	constexpr size_t dimension = 400;
+	//constexpr 
+	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
+	vector<sphere> spheres
+	{
+		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
+		sphere(1e5, vec(-1e5 + 99, 40.8, 81.6), vec(), vec(0.25, 0.25, 0.75), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, 40.8, 1e5), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, 40.8, -1e5 + 170), vec(), vec(), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, 1e5, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
+		sphere(1e5, vec(50, -1e5 + 81.6, 81.6), vec(), vec(0.75, 0.75, 0.75), reflection_type::DIFFUSE),
+		sphere(16.5, vec(27, 16.5, 47), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR),
+		sphere(16.5, vec(73, 16.5, 78), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE),
+		sphere(600, vec(50, 681.6 - 0.27, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE)
+	};
+	// **************************************************************************************
+
+	ray camera(vec(50, 52, 295.6), vec(0, -0.042612, -1).normal());
+	vec cx = vec(0.5135);
+	vec cy = (cx.cross(camera.direction)).normal() * 0.5135;
+	vec r;
+	vector<vec> pixels(dimension * dimension);
+
+
+	//R//Create results file
+	ofstream results("Kevin.csv", ofstream::out);
+	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << "," << "Spheres" << endl;
+
+
+	//R//Loop through sample sizes
+	while(samples != 256)
+	{
+		
+		//Sphere adding loop
+		for (int Z = 0; Z < 3; Z++)
+		{
+
+			//R loop
+			for (int R = 0; R < 10; R++)
+			{
+
+				//R//
+				auto startTime = chrono::system_clock::now();
+
+				for (size_t y = 0; y < dimension; ++y)
+				{
+					for (size_t x = 0; x < dimension; ++x)
+					{
+						for (size_t sy = 0, i = (dimension - y - 1) * dimension + x; sy < 2; ++sy)
+						{
+							for (size_t sx = 0; sx < 2; ++sx)
+							{
+								r = vec();
+								for (size_t s = 0; s < samples; ++s)
+								{
+									double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
+									double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
+									vec direction = cx * static_cast<double>(((sx + 0.5 + dx) / 2 + x) / dimension - 0.5) + cy * static_cast<double>(((sy + 0.5 + dy) / 2 + y) / dimension - 0.5) + camera.direction;
+									r = r + radiance(spheres, ray(camera.origin + direction * 140, direction.normal()), 0) * (1.0 / samples);
+								}
+								pixels[i] = pixels[i] + vec(clamp(r.x, 0.0, 1.0), clamp(r.y, 0.0, 1.0), clamp(r.z, 0.0, 1.0)) * 0.25;
+							}
+						}
+					}
+				}
+				//R//Get end time and calculate the time taken
+				auto endTime = chrono::system_clock::now();
+				auto totalTime = chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count();
+
+				//R//Output results
+				results << dimension << " * " << dimension << ", " << samples * 4 << "," << totalTime << ", " << spheres.size() << endl;
+			
+			}//End of loop
+			//Add some spheres
+			if (spheres.size() > 14)
+			{
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+				spheres.pop_back();
+			}
+			else if (spheres.size() > 9 && spheres.size() < 13)
+			{
+				spheres.push_back(sphere(19.5, vec(07, 16.5, 42), vec(), vec(1, 1, 1) * 0.999, reflection_type::SPECULAR));
+				spheres.push_back(sphere(20.5, vec(13, 66.5, 98), vec(), vec(1, 1, 1) * 0.999, reflection_type::REFRACTIVE));
+				spheres.push_back(sphere(700, vec(90, 481.6 - 0.97, 81.6), vec(12, 12, 12), vec(), reflection_type::DIFFUSE));
+			}
+			else if (spheres.size() < 10)
+			{
+				spheres.push_back(sphere(1e5, vec(1e5 + 1, 50.8, 31.6), vec(), vec(0.45, 0.25, 0.35), reflection_type::DIFFUSE));
+				spheres.push_back(sphere(1e5, vec(-1e5 + 91, 40.8, 51.6), vec(), vec(0.15, 0.55, 0.35), reflection_type::DIFFUSE));
+				spheres.push_back(sphere(1e5, vec(50, 60.8, 1e5), vec(), vec(0.85, 0.70, 0.07), reflection_type::DIFFUSE));
+			}
+
+		}//End of sphere adding loop 
+		results << endl;
+		samples *= 4;
+
+	}//End of While
+
+	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
+	return 0;
+}
+*/
