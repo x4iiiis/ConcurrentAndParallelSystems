@@ -346,7 +346,7 @@ void pixelsI(int dimension, int samples, vec r, vec cx, vec cy, ray camera, vect
 int main(int argc, char **argv)
 {
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 400;
+	constexpr size_t dimension = 1024;
 	vector<sphere> spheres
 	{
 		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
@@ -481,7 +481,7 @@ int main(int argc, char **argv)
 	auto get_random_number = bind(distribution, generator);
 
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 400;
+	constexpr size_t dimension = 1024;
 	//constexpr 
 	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
@@ -612,7 +612,7 @@ int main(int argc, char **argv)
 	auto get_random_number = bind(distribution, generator);
 
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 400;
+	constexpr size_t dimension = 1024;
 	//constexpr 
 	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
