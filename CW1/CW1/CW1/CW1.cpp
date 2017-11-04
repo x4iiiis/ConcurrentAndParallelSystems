@@ -472,7 +472,7 @@ int main(int argc, char **argv)
 
 
 //R//Main for Parallel For 
-/*
+///*
 int main(int argc, char **argv)
 {
 	random_device rd;
@@ -481,7 +481,7 @@ int main(int argc, char **argv)
 	auto get_random_number = bind(distribution, generator);
 
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 1024;
+	constexpr size_t dimension = 400;
 	//constexpr 
 	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
@@ -506,7 +506,7 @@ int main(int argc, char **argv)
 
 
 	//R//Create results file
-	ofstream results("ParallelFor.csv", ofstream::out);
+	ofstream results("ParallelForFixed.csv", ofstream::out);
 	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << "," << "Spheres" << endl;
 
 
@@ -528,7 +528,9 @@ int main(int argc, char **argv)
 				//R//
 				auto startTime = chrono::system_clock::now();
 
-				for (size_t y = 0; y < dimension; ++y)
+				
+#pragma omp parallel for num_threads(threadCount) private (r)
+				for (int y = 0; y < dimension; ++y)
 				{
 					for (size_t x = 0; x < dimension; ++x)
 					{
@@ -540,9 +542,9 @@ int main(int argc, char **argv)
 
 
 								//R//Parallel For
-								int s;
-#pragma omp parallel for num_threads(threadCount) private(s) 
-								for (s = 0; s < samples; ++s)
+//								int s;
+//#pragma omp parallel for num_threads(threadCount) private(s) 
+								for (size_t s = 0; s < samples; ++s)
 								{
 									double r1 = 2 * get_random_number(), dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
 									double r2 = 2 * get_random_number(), dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
@@ -594,7 +596,7 @@ int main(int argc, char **argv)
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
 	return 0;
 }
-*/
+//*/
 
 
 
@@ -603,7 +605,7 @@ int main(int argc, char **argv)
 
 
 //KEVIN'S MAIN//
-///*
+/*
 int main(int argc, char **argv)
 {
 	random_device rd;
@@ -717,4 +719,4 @@ int main(int argc, char **argv)
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
 	return 0;
 }
-//*/
+*/
