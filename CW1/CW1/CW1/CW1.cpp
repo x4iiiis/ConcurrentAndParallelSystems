@@ -380,7 +380,7 @@ int main(int argc, char **argv)
 	{
 
 		//Sphere adding loop
-		for (int Z = 0; Z < 3; Z++)
+		for (int Z = 1; Z < 3; Z++)
 		{
 
 			//Trying to make a loop
@@ -481,7 +481,7 @@ int main(int argc, char **argv)
 	auto get_random_number = bind(distribution, generator);
 
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
-	constexpr size_t dimension = 400;
+	constexpr size_t dimension = 1024;
 	//constexpr 
 	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
@@ -506,7 +506,7 @@ int main(int argc, char **argv)
 
 
 	//R//Create results file
-	ofstream results("ParallelForFixed.csv", ofstream::out);
+	ofstream results("ParallelForFixed1024.csv", ofstream::out);
 	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << "," << "Spheres" << endl;
 
 
@@ -616,7 +616,7 @@ int main(int argc, char **argv)
 	// *** These parameters can be manipulated in the algorithm to modify work undertaken ***
 	constexpr size_t dimension = 1024;
 	//constexpr 
-	size_t samples = 1; // Algorithm performs 4 * samples per pixel.
+	size_t samples = 64; // Algorithm performs 4 * samples per pixel.
 	vector<sphere> spheres
 	{
 		sphere(1e5, vec(1e5 + 1, 40.8, 81.6), vec(), vec(0.75, 0.25, 0.25), reflection_type::DIFFUSE),
@@ -639,7 +639,7 @@ int main(int argc, char **argv)
 
 
 	//R//Create results file
-	ofstream results("Kevin.csv", ofstream::out);
+	ofstream results("Kevin1024_256.csv", ofstream::out);
 	results << "Image Dimensions (px)" << "," << "Samples per Pixel" << "," << "Time taken (ms)" << "," << "Spheres" << endl;
 
 
@@ -652,7 +652,7 @@ int main(int argc, char **argv)
 		{
 
 			//R loop
-			for (int R = 0; R < 10; R++)
+			for (int R = 0; R < 1; R++)
 			{
 
 				//R//
