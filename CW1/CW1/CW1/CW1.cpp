@@ -472,7 +472,7 @@ int main(int argc, char **argv)
 
 
 //R//Main for Parallel For 
-///*
+/*
 int main(int argc, char **argv)
 {
 	random_device rd;
@@ -513,6 +513,8 @@ int main(int argc, char **argv)
 	//R//Looping through sample sizes
 	while (samples != 256)
 	{
+
+		cout << "Starting samples: " << samples << endl;
 
 		//Sphere adding loop
 		for (int Z = 0; Z < 3; Z++)
@@ -596,7 +598,7 @@ int main(int argc, char **argv)
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
 	return 0;
 }
-//*/
+*/
 
 
 
@@ -605,7 +607,7 @@ int main(int argc, char **argv)
 
 
 //KEVIN'S MAIN//
-/*
+///*
 int main(int argc, char **argv)
 {
 	random_device rd;
@@ -719,4 +721,4 @@ int main(int argc, char **argv)
 	cout << "img.bmp" << (array2bmp("img.bmp", pixels, dimension, dimension) ? " Saved\n" : " Save Failed\n");
 	return 0;
 }
-*/
+//*/
