@@ -1,0 +1,5 @@
+Image Dimensions (px),Samples per Pixel,Time taken (ms),Spheres
+1024 * 1024, 256,789977, 9
+1024 * 1024, 256,799601, 12
+1024 * 1024, 256,999672, 15
+
