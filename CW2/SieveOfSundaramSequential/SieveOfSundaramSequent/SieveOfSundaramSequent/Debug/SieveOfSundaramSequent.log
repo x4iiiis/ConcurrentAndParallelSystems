@@ -1,0 +1,6 @@
+﻿  stdafx.cpp
+  SieveOfSundaramSequent.cpp
+e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofsundaramsequential\sieveofsundaramsequent\sieveofsundaramsequent\sieveofsundaramsequent.cpp(27): error C2131: expression did not evaluate to a constant
+  e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofsundaramsequential\sieveofsundaramsequent\sieveofsundaramsequent\sieveofsundaramsequent.cpp(27): note: failure was caused by a read of a variable outside its lifetime
+  e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofsundaramsequential\sieveofsundaramsequent\sieveofsundaramsequent\sieveofsundaramsequent.cpp(27): note: see usage of 'nNew'
+e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofsundaramsequential\sieveofsundaramsequent\sieveofsundaramsequent\sieveofsundaramsequent.cpp(36): error C3863: array type 'bool [nNew+]' is not assignable
