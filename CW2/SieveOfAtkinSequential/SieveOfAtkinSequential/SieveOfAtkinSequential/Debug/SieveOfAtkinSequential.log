@@ -1,2 +1,4 @@
-﻿  SieveOfAtkinSequential.cpp
-  SieveOfAtkinSequential.vcxproj -> E:\Uni\Year-4\ConcurrentAndParallelSystems\ConcurrentAndParallelSystems\CW2\SieveOfAtkinSequential\SieveOfAtkinSequential\Debug\SieveOfAtkinSequential.exe
+﻿  stdafx.cpp
+  SieveOfAtkinSequential.cpp
+  LINK : C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinSequential\SieveOfAtkinSequential\Debug\SieveOfAtkinSequential.exe not found or not built by the last incremental link; performing full link
+  SieveOfAtkinSequential.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinSequential\SieveOfAtkinSequential\Debug\SieveOfAtkinSequential.exe

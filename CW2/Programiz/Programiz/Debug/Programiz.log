@@ -1,1 +1,4 @@
-﻿  Programiz.vcxproj -> E:\Uni\Year-4\ConcurrentAndParallelSystems\ConcurrentAndParallelSystems\CW2\Programiz\Debug\Programiz.exe
+﻿  stdafx.cpp
+  Programiz.cpp
+  LINK : C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\Programiz\Debug\Programiz.exe not found or not built by the last incremental link; performing full link
+  Programiz.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\Programiz\Debug\Programiz.exe
