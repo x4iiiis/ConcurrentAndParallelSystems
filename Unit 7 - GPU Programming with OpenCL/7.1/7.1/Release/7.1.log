@@ -1,0 +1,10 @@
+﻿  stdafx.cpp
+  7.1.cpp
+7.1.cpp(48): warning C4101: 'status': unreferenced local variable
+7.1.obj : error LNK2001: unresolved external symbol _clGetPlatformIDs@12
+7.1.obj : error LNK2001: unresolved external symbol _clGetDeviceIDs@24
+7.1.obj : error LNK2001: unresolved external symbol _clCreateContext@24
+7.1.obj : error LNK2001: unresolved external symbol _clCreateCommandQueue@20
+7.1.obj : error LNK2001: unresolved external symbol _clReleaseCommandQueue@4
+7.1.obj : error LNK2001: unresolved external symbol _clReleaseContext@4
+E:\Uni\Year-4\ConcurrentAndParallelSystems\ConcurrentAndParallelSystems\Unit 7 - GPU Programming with OpenCL\7.1\Release\7.1.exe : fatal error LNK1120: 6 unresolved externals
