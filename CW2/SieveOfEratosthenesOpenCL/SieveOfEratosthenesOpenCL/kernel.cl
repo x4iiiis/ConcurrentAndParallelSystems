@@ -1,7 +1,9 @@
-__kernel void EratosthenesOpenCL(__global bool *isComposite, __global int *upperBoundSquareRoot, __global int *upperBound)
+__kernel void EratosthenesOpenCL(__global bool* isComposite)
 {
 	//Get the work item's unique ID
 	int idx = get_global_id(0);
+
+
 
 	for (int m = 2; m <= upperBoundSquareRoot; m++)
 	{
