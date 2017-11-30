@@ -1,117 +1,108 @@
 // AtkinParallelFor.cpp : Defines the entry point for the console application.
 //
-// SieveOfAtkinSequential.cpp : Defines the entry point for the console application.
 
 #include "stdafx.h"
 
 #include <iostream>
 #include <fstream>
 #include <chrono>
-
+#include <vector>
 #include <thread>
 #include <omp.h>
+
+#define ll long long 
 
 //#include <bits/stdc++.h>
 
 using namespace std;
 using namespace chrono;
 
-///////////////////////////////////////////////////////////////////////////////////////http://www.geeksforgeeks.org/sieve-of-atkin/
-auto SieveOfAtkin(int limit)
-{
-	auto threadCount = thread::hardware_concurrency();
 
+///////////////////////////////////////////////////////////////////////////////////////////////http://www.sanfoundry.com/cpp-program-implement-sieve-atkins/
+auto sieve_atkins(ll int n)
+{
 	//R//Create results file
 	ofstream results("PrimeNumbers.txt", ofstream::out);		//Inside the loop so that PrimeNumbers.txt is wiped each time and only keeps the prime numbers on the last run
 
-																// 2 and 3 are known to be prime
-	if (limit > 2)  results << 2 << endl;					//*********************************************************NOTICE THESE************************************************
-	if (limit > 3)  results << 3 << endl;					//*********************************************************NOTICE THESE************************************************
-
-															// Initialise the sieve array with false values
-	bool* sieve = new bool[limit];
-
-	int i;
-#pragma omp parallel for num_threads(threadCount) private(i)
-	for (i = 0; i < limit; i++)
-	{
-		sieve[i] = false;
-	}
-
-	//R//Timing the results
+																//R//Timing the results
 	auto start = system_clock::now();
 
-	/* Mark siev[n] is true if one of the following is true:
-	a) n = (4*x*x)+(y*y) has odd number of solutions, i.e., there exist
-	odd number of distinct pairs (x, y) that satisfy the equation and
-	n % 12 = 1 or n % 12 = 5.
-	b) n = (3*x*x)+(y*y) has odd number of solutions and n % 12 = 7
-	c) n = (3*x*x)-(y*y) has odd number of solutions, x > y and n % 12 = 11 */
-	int n;
-	int limitRoot = sqrt(limit);
-#pragma omp parallel for num_threads(threadCount)// private(n)
-	for (int x = 1; x < limitRoot; x++)
+	vector<bool> is_prime(n + 1);
+	is_prime[2] = true;
+	is_prime[3] = true;
+	for (ll int i = 5; i <= n; i++)
 	{
-		for (int y = 1; y < limit; y++)
+		is_prime[i] = false;
+	}
+	ll int lim = ceil(sqrt(n));
+	
+
+//#pragma parallel for thread_num(thread::hardware_concurrency())
+	for (ll int x = 1; x <= lim; x++)
+	{
+#pragma parallel for thread_num(thread::hardware_concurrency())
+		for (ll int y = 1; y <= lim; y++)
 		{
-			// Main part of Sieve of Atkin
-			n = (4 * x*x) + (y*y);
-			if (n <= limit && (n % 12 == 1 || n % 12 == 5))
-				sieve[n] ^= true;
+			ll int num = (4 * x * x + y * y);
+			if (num <= n && (num % 12 == 1 || num % 12 == 5))
+			{
+				is_prime[num] = true;
+			}
+			num = (3 * x * x + y * y);
+			if (num <= n && (num % 12 == 7))
+			{
+				is_prime[num] = true;
+			}
 
-			n = (3 * x*x) + (y*y);
-			if (n <= limit && n % 12 == 7)
-				sieve[n] ^= true;
-
-			n = (3 * x*x) - (y*y);
-			if (x > y && n <= limit && n % 12 == 11)
-				sieve[n] ^= true;
+			if (x > y)
+			{
+				num = (3 * x * x - y * y);
+				if (num <= n && (num % 12 == 11))
+				{
+					is_prime[num] = true;
+				}
+			}
 		}
 	}
 
 
-	// Mark all multiples of squares as non-prime
-	int r;
-#pragma omp parallel for num_threads(threadCount)// private(i)
-	for (r = 5; r < limitRoot; r++)
+//#pragma parallel for thread_num(thread::hardware_concurrency())
+	for (ll int i = 5; i <= lim; i++)
 	{
-		if (sieve[r])
+		if (is_prime[i])
 		{
-			for (i = r*r; i < limit; i += r*r)
-				sieve[i] = false;
+#pragma parallel for thread_num(thread::hardware_concurrency())
+			for (ll int j = i * i; j <= n; j += i)
+			{
+				is_prime[j] = false;
+			}
 		}
 	}
 
-	int a;
-//#pragma omp parallel for num_threads(threadCount) private (a) -------------------- Don't want this as it messes with output order
-
-	// Print primes using sieve[]
-	for (a = 5; a < limit; a++)
+	for (ll int i = 2; i <= n; i++)
 	{
-		if (sieve[a])
+		if (is_prime[i])
 		{
-			//cout << a << " ";			//Comment these out as they slow down performance
-			results << a << endl;		//R//Outputting the prime numbers to the text file
+			results << i << endl;
 		}
 	}
+
 	//R//Timing the results
 	auto end = system_clock::now();
 	auto total = duration_cast<milliseconds>(end - start).count();
 
-	//R//Outputting the time taken to a text file
-	//timer << total << endl;
-	delete[] sieve;
-
 	return total;
 }
 
-//Driver program
-int main(void)
+/*
+* Main
+*/
+int main()
 {
-	int Runs = 1;
-	int limit = 1000000000; //Supposed to be 1 billion (1000000000)
+	int Runs = 10;
+	ll int n = 1000000000;
 
-							//R//Create time taken file
+	//R//Create time taken file
 	ofstream timer("TimeTaken.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
 	timer << "Milliseconds" << endl;
 
@@ -119,8 +110,9 @@ int main(void)
 	{
 		cout << "Starting run " << i + 1 << " of " << Runs << endl;		//Will slightly affect performance but it allows to check the progress when running several times
 																		//Won't affect time taken results though. 
-		timer << SieveOfAtkin(limit) << endl; //?
+		timer << sieve_atkins(n) << endl; //?
 	}
+
 	return 0;
 }
 
