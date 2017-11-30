@@ -3,6 +3,6 @@ AtkinParallelFor.cpp(51): warning C4244: 'initializing': conversion from 'double
   Generating code
   4 of 145 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
     3 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AtkinParallelFor.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinParallelFor\AtkinParallelFor\x64\Release\AtkinParallelFor.exe
