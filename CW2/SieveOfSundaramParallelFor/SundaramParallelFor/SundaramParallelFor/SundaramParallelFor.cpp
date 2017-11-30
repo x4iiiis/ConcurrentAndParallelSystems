@@ -22,7 +22,7 @@ using namespace chrono;
 int main()
 {
 	int Runs = 10;
-	int Max = 1000000000; // meant to be 1000000000
+	int Max = 100000;//0000; // meant to be 1000000000
 
 	auto threadCount = thread::hardware_concurrency();
 	

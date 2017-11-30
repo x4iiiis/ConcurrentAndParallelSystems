@@ -41,19 +41,18 @@ auto SieveOfAtkin(int limit)
 	//R//Timing the results
 	auto start = system_clock::now();
 
-
-	int n;
-#pragma omp parallel for num_threads(threadCount) private(n)
-
 	/* Mark siev[n] is true if one of the following is true:
 	a) n = (4*x*x)+(y*y) has odd number of solutions, i.e., there exist
 	odd number of distinct pairs (x, y) that satisfy the equation and
 	n % 12 = 1 or n % 12 = 5.
 	b) n = (3*x*x)+(y*y) has odd number of solutions and n % 12 = 7
 	c) n = (3*x*x)-(y*y) has odd number of solutions, x > y and n % 12 = 11 */
-	for (int x = 1; x*x < limit; x++)
+	int n;
+	int limitRoot = sqrt(limit);
+#pragma omp parallel for num_threads(threadCount)// private(n)
+	for (int x = 1; x < limitRoot; x++)
 	{
-		for (int y = 1; y*y < limit; y++)
+		for (int y = 1; y < limit; y++)
 		{
 			// Main part of Sieve of Atkin
 			n = (4 * x*x) + (y*y);
@@ -70,12 +69,11 @@ auto SieveOfAtkin(int limit)
 		}
 	}
 
-	//int i;
-	int r;
-#pragma omp parallel for num_threads(threadCount) private(i)
 
 	// Mark all multiples of squares as non-prime
-	for (r = 5; r*r < limit; r++)
+	int r;
+#pragma omp parallel for num_threads(threadCount)// private(i)
+	for (r = 5; r < limitRoot; r++)
 	{
 		if (sieve[r])
 		{

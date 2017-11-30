@@ -19,7 +19,7 @@ using namespace chrono;
 int main()
 {
 	///////////////////////////////////////////////////////////////////////////////////////http://www.algolist.net/Algorithms/Number_theoretic/Sieve_of_Eratosthenes
-	int Runs = 1;
+	int Runs = 10;
 	int upperBound = 1000000000;	//Supposed to be 1 billion (1000000000)
 
 	auto threadCount = thread::hardware_concurrency();
@@ -61,7 +61,7 @@ int main()
 			}
 		}
 		
-//#pragma omp parallel for num_threads(threadCount) private (m)
+#pragma omp parallel for num_threads(threadCount) private (m)
 		for ( m = upperBoundSquareRoot; m <= upperBound; m++)
 		{
 			if (!isComposite[m])
