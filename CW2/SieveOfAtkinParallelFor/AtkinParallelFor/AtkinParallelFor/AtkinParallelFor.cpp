@@ -37,10 +37,10 @@ auto sieve_atkins(ll int n)
 	ll int lim = ceil(sqrt(n));
 	
 
-//#pragma parallel for thread_num(thread::hardware_concurrency())
+#pragma parallel for thread_num(thread::hardware_concurrency())
 	for (ll int x = 1; x <= lim; x++)
 	{
-#pragma parallel for thread_num(thread::hardware_concurrency())
+//#pragma parallel for thread_num(thread::hardware_concurrency())
 		for (ll int y = 1; y <= lim; y++)
 		{
 			ll int num = (4 * x * x + y * y);
@@ -66,12 +66,12 @@ auto sieve_atkins(ll int n)
 	}
 
 
-//#pragma parallel for thread_num(thread::hardware_concurrency())
+#pragma parallel for thread_num(thread::hardware_concurrency())
 	for (ll int i = 5; i <= lim; i++)
 	{
 		if (is_prime[i])
 		{
-#pragma parallel for thread_num(thread::hardware_concurrency())
+//#pragma parallel for thread_num(thread::hardware_concurrency())
 			for (ll int j = i * i; j <= n; j += i)
 			{
 				is_prime[j] = false;

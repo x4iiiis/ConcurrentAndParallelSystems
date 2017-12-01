@@ -21,7 +21,7 @@ using namespace chrono;
 //////////////////////////////////////////////////////////////////////////////////////RUN ME IN X64
 int main()
 {
-	int Runs = 10;
+	int Runs = 1;
 	int Max = 1000000000; // meant to be 1000000000
 
 	auto threadCount = thread::hardware_concurrency();
@@ -62,9 +62,10 @@ int main()
 
 
 		int j;
-#pragma omp parallel for num_threads(threadCount) private(j)
+//#pragma omp parallel for num_threads(threadCount) private(j)
 		for (int i = 1; i < n; i++)
 		{
+#pragma omp parallel for num_threads(threadCount)
 			for (j = i; j <= (n - i) / (2 * i + 1); j++)
 			{
 				isPrime[i + j + 2 * i * j] = 0;/*From this list, remove all

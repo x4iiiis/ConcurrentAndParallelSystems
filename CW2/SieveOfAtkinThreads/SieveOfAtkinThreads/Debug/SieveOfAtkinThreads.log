@@ -1,57 +1,13 @@
 ﻿  stdafx.cpp
   SieveOfAtkinThreads.cpp
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(37): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(39): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(47): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(48): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(50): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(55): warning C4244: 'initializing': conversion from 'double' to '__int64', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(63): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(68): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(76): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(85): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(89): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(96): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): error C2672: 'std::invoke': no matching overloaded function found
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(248): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Execute<0>(std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>> &,std::integer_sequence<_Ty,0>)' being compiled
-          with
-          [
-              _Target=std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>>>,
-              _Ty=::size_t
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(247): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Execute<0>(std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>> &,std::integer_sequence<_Ty,0>)' being compiled
-          with
-          [
-              _Target=std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>>>,
-              _Ty=::size_t
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(244): note: while compiling class template member function 'void std::_LaunchPad<_Target>::_Run(std::_LaunchPad<_Target> *) noexcept'
-          with
-          [
-              _Target=std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>>>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(232): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Run(std::_LaunchPad<_Target> *) noexcept' being compiled
-          with
-          [
-              _Target=std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>>>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(259): note: see reference to class template instantiation 'std::_LaunchPad<_Target>' being compiled
-          with
-          [
-              _Target=std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>>>
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thread(48): note: see reference to function template instantiation 'void std::_Launch<std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<_Ty>>>(_Thrd_t *,_Target &&)' being compiled
-          with
-          [
-              _Ty=std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,
-              _Target=std::unique_ptr<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>,std::default_delete<std::tuple<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>>>>
-          ]
-  e:\uni\year-4\concurrentandparallelsystems\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(50): note: see reference to function template instantiation 'std::thread::thread<std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>&,,void>(_Fn)' being compiled
-          with
-          [
-              _Fn=std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>> &
-          ]
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): error C2893: Failed to specialize function template 'unknown-type std::invoke(_Callable &&,_Types &&...) noexcept(<expr>)'
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): note: With the following template arguments:
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): note: '_Callable=std::_Vb_reference<std::_Wrap_alloc<std::allocator<std::_Vbase>>>'
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): note: '_Types={}'
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(28): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(33): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(35): warning C4244: 'initializing': conversion from 'double' to '__int64', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(43): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(48): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(56): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(63): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(67): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveofatkinthreads\sieveofatkinthreads\sieveofatkinthreads.cpp(74): warning C4244: 'argument': conversion from '__int64' to 'unsigned int', possible loss of data
+  SieveOfAtkinThreads.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinThreads\Debug\SieveOfAtkinThreads.exe
+  SieveOfAtkinThreads.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinThreads\Debug\SieveOfAtkinThreads.pdb (Partial PDB)

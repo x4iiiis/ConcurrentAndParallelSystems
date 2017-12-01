@@ -1,10 +1,11 @@
 ﻿  AtkinParallelFor.cpp
 AtkinParallelFor.cpp(37): warning C4244: 'initializing': conversion from 'double' to '__int64', possible loss of data
-AtkinParallelFor.cpp(43): warning C4068: unknown pragma
-AtkinParallelFor.cpp(74): warning C4068: unknown pragma
+AtkinParallelFor.cpp(40): warning C4068: unknown pragma
+AtkinParallelFor.cpp(69): warning C4068: unknown pragma
   Generating code
   1 of 224 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AtkinParallelFor.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinParallelFor\AtkinParallelFor\x64\Release\AtkinParallelFor.exe
+  AtkinParallelFor.vcxproj -> C:\Users\40168766\Documents\GitHub\ConcurrentAndParallelSystems\CW2\SieveOfAtkinParallelFor\AtkinParallelFor\x64\Release\AtkinParallelFor.pdb (Full PDB)

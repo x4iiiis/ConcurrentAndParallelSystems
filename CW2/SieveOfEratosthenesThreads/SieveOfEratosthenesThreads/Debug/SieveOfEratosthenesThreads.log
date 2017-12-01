@@ -1,0 +1,45 @@
+﻿  SieveOfEratosthenesThreads.cpp
+c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveoferatosthenesthreads\sieveoferatosthenesthreads\sieveoferatosthenesthreads.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): error C2672: 'std::invoke': no matching overloaded function found
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(248): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Execute<0,1,2,3,4,5,6>(std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *> &,std::integer_sequence<_Ty,0,1,2,3,4,5,6>)' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>>>,
+              _Ty=::size_t
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(247): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Execute<0,1,2,3,4,5,6>(std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *> &,std::integer_sequence<_Ty,0,1,2,3,4,5,6>)' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>>>,
+              _Ty=::size_t
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(244): note: while compiling class template member function 'void std::_LaunchPad<_Target>::_Run(std::_LaunchPad<_Target> *) noexcept'
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(232): note: see reference to function template instantiation 'void std::_LaunchPad<_Target>::_Run(std::_LaunchPad<_Target> *) noexcept' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(259): note: see reference to class template instantiation 'std::_LaunchPad<_Target>' being compiled
+          with
+          [
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>>>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thread(48): note: see reference to function template instantiation 'void std::_Launch<std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<_Ty>>>(_Thrd_t *,_Target &&)' being compiled
+          with
+          [
+              _Ty=std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,
+              _Target=std::unique_ptr<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>,std::default_delete<std::tuple<void (__cdecl *)(int,bool *,int,std::ofstream,int,int),int *,bool **,int *,std::ofstream *,int *,int *>>>
+          ]
+  c:\users\40168766\documents\github\concurrentandparallelsystems\cw2\sieveoferatosthenesthreads\sieveoferatosthenesthreads\sieveoferatosthenesthreads.cpp(94): note: see reference to function template instantiation 'std::thread::thread<void(__cdecl &)(int,bool *,int,std::ofstream,int,int),int*,bool**,int*,std::ofstream*,int*,int*,void>(_Fn,int *&&,bool **&&,int *&&,std::ofstream *&&,int *&&,int *&&)' being compiled
+          with
+          [
+              _Fn=void (__cdecl &)(int,bool *,int,std::ofstream,int,int)
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): error C2893: Failed to specialize function template 'unknown-type std::invoke(_Callable &&,_Types &&...) noexcept(<expr>)'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): note: With the following template arguments:
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): note: '_Callable=void (__cdecl *)(int,bool *,int,std::ofstream,int,int)'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\thr\xthread(240): note: '_Types={int *, bool **, int *, std::ofstream *, int *, int *}'
