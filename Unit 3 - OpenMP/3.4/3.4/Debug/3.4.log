@@ -1,8 +1,0 @@
-﻿  stdafx.cpp
-  34.cpp
-e:\uni\year-4\concurrentandparallelsystems\unit 3 - openmp\3.4\3.4\34.cpp(47): warning C4018: '<': signed/unsigned mismatch
-e:\uni\year-4\concurrentandparallelsystems\unit 3 - openmp\3.4\3.4\34.cpp(54): warning C4018: '<': signed/unsigned mismatch
-e:\uni\year-4\concurrentandparallelsystems\unit 3 - openmp\3.4\3.4\34.cpp(70): warning C4018: '<': signed/unsigned mismatch
-e:\uni\year-4\concurrentandparallelsystems\unit 3 - openmp\3.4\3.4\34.cpp(33): warning C4715: 'generate_values': not all control paths return a value
-  3.4.vcxproj -> E:\Uni\Year-4\ConcurrentAndParallelSystems\Unit 3 - OpenMP\3.4\Debug\3.4.exe
-  3.4.vcxproj -> E:\Uni\Year-4\ConcurrentAndParallelSystems\Unit 3 - OpenMP\3.4\Debug\3.4.pdb (Partial PDB)
