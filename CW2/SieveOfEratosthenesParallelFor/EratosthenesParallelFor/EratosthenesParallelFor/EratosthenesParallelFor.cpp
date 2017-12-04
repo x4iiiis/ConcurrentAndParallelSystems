@@ -19,13 +19,13 @@ using namespace chrono;
 int main()
 {
 	///////////////////////////////////////////////////////////////////////////////////////http://www.algolist.net/Algorithms/Number_theoretic/Sieve_of_Eratosthenes
-	int Runs = 10;
+	int Runs = 1;// 0;
 	int upperBound = 1000000000;	//Supposed to be 1 billion (1000000000)
 
 	auto threadCount = thread::hardware_concurrency();
 
 									//R//Create time taken file
-	ofstream timer("TimeTaken.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
+	ofstream timer("TimeTakenEratosthenesDynamic.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
 	timer << "Milliseconds" << endl;
 
 	for (int i = 0; i < Runs; i++)
@@ -45,7 +45,7 @@ int main()
 		auto start = system_clock::now();
 
 		int m;
-#pragma omp parallel for num_threads(threadCount) private (m)
+#pragma omp parallel for num_threads(threadCount) private (m) schedule(dynamic)
 
 		for (m = 2; m <= upperBoundSquareRoot; m++)
 		{
@@ -61,7 +61,7 @@ int main()
 			}
 		}
 		
-#pragma omp parallel for num_threads(threadCount) private (m)
+#pragma omp parallel for num_threads(threadCount) private (m) schedule(dynamic)
 		for ( m = upperBoundSquareRoot; m <= upperBound; m++)
 		{
 			if (!isComposite[m])

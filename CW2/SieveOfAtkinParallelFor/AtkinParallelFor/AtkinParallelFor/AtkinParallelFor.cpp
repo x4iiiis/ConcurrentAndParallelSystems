@@ -37,7 +37,7 @@ auto sieve_atkins(ll int n)
 	ll int lim = ceil(sqrt(n));
 	
 
-#pragma parallel for thread_num(thread::hardware_concurrency())
+#pragma parallel for thread_num(thread::hardware_concurrency()) schedule (dynamic)
 	for (ll int x = 1; x <= lim; x++)
 	{
 //#pragma parallel for thread_num(thread::hardware_concurrency())
@@ -66,7 +66,7 @@ auto sieve_atkins(ll int n)
 	}
 
 
-#pragma parallel for thread_num(thread::hardware_concurrency())
+#pragma parallel for thread_num(thread::hardware_concurrency()) schedule(dynamic)
 	for (ll int i = 5; i <= lim; i++)
 	{
 		if (is_prime[i])
@@ -99,11 +99,11 @@ auto sieve_atkins(ll int n)
 */
 int main()
 {
-	int Runs = 10;
+	int Runs = 5;
 	ll int n = 1000000000;
 
 	//R//Create time taken file
-	ofstream timer("TimeTaken.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
+	ofstream timer("TimeTakenAtkinDynamic.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
 	timer << "Milliseconds" << endl;
 
 	for (int i = 0; i < Runs; i++)

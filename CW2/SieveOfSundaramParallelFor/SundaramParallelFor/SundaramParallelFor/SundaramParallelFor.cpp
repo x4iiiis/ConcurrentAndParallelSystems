@@ -27,7 +27,7 @@ int main()
 	auto threadCount = thread::hardware_concurrency();
 	
 	//R//Create time taken file
-	ofstream timer("TimeTaken.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
+	ofstream timer("TimeTakenSundaramdynamic.csv", ofstream::out);					//Outside the loop so that it keeps track of previous runs 
 	timer << "Milliseconds" << endl;
 
 	for (int i = 0; i < Runs; i++)
@@ -65,7 +65,7 @@ int main()
 //#pragma omp parallel for num_threads(threadCount) private(j)
 		for (int i = 1; i < n; i++)
 		{
-#pragma omp parallel for num_threads(threadCount)
+#pragma omp parallel for num_threads(threadCount) schedule(dynamic)
 			for (j = i; j <= (n - i) / (2 * i + 1); j++)
 			{
 				isPrime[i + j + 2 * i * j] = 0;/*From this list, remove all
